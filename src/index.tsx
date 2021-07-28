@@ -6,6 +6,7 @@ import 'firebase/database';
 import './styles.scss';
 import { MessageForm } from './components/MessageForm';
 import { MessageList } from './components/MessageList';
+import { MessageHeader } from './components/MessageHeader';
 import { MessageItem } from './types';
 
 // FIREBASE INITIALIZATION
@@ -22,21 +23,25 @@ firebase.initializeApp({
 firebase.analytics();
 
 // CONSTANTS
-export const USER_ID = 1; // Will handle auth later
-export const RECEIVER_ID = 2; // Will handle this later
+export const USER_ID = '1'; // Will handle auth later
+export const RECEIVER_ID = '2'; // Will handle this later
 
 const chatDB = firebase
 	.database()
 	.ref('chats')
 	.child(
-		USER_ID < RECEIVER_ID
+		Number(USER_ID) < Number(RECEIVER_ID)
 			? `${USER_ID}:${RECEIVER_ID}`
 			: `${RECEIVER_ID}:${USER_ID}`
 	);
 
+const userDB = firebase.database().ref('users');
+
 export const App = (): JSX.Element => {
 	const [messages, setMessages] = useState<MessageItem[]>([]);
 	const [text, setText] = useState<string>('');
+	const [receiver, setReceiver] = useState(RECEIVER_ID);
+	const [receiverName, setReceiverName] = useState(null);
 
 	useEffect(() => {
 		chatDB.on('value', snapshot => {
@@ -47,6 +52,16 @@ export const App = (): JSX.Element => {
 			setMessages(messages);
 		});
 	}, []);
+
+	useEffect(() => {
+		if (receiver) {
+			userDB.child(receiver).on('value', snapshot => {
+				snapshot.forEach(user => {
+					setReceiverName(user.val());
+				});
+			});
+		}
+	}, [receiver]);
 
 	const onClickHandler = (e: SyntheticEvent): void => {
 		e.preventDefault();
@@ -72,16 +87,19 @@ export const App = (): JSX.Element => {
 	};
 
 	return (
-		<div className='chat-box'>
-			{messages && <MessageList messages={messages} />}
-			<MessageForm
-				id='chat-message'
-				value={text}
-				disabled={!text.trim()}
-				onChange={onChangeHandler}
-				onClick={onClickHandler}
-			/>
-		</div>
+		<>
+			<MessageHeader userName={receiverName} />
+			<div className='chat-box'>
+				{messages && <MessageList messages={messages} />}
+				<MessageForm
+					id='chat-message'
+					value={text}
+					disabled={!text.trim()}
+					onChange={onChangeHandler}
+					onClick={onClickHandler}
+				/>
+			</div>
+		</>
 	);
 };
 
