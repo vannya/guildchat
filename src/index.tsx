@@ -1,9 +1,10 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState, ChangeEvent } from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/database';
 import './styles.scss';
+import { MessageForm } from './components/MessageForm';
 
 // FIREBASE INITIALIZATION
 firebase.initializeApp({
@@ -63,7 +64,7 @@ export const App = (): JSX.Element => {
 		setText('');
 	};
 
-	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
 		setText(e.target.value);
 	};
 
@@ -73,19 +74,13 @@ export const App = (): JSX.Element => {
 				messages.map(item => {
 					return <div key={item.timeStamp}>{item.content}</div>;
 				})}
-			<form>
-				<label htmlFor='chat-message'>Enter Text</label>
-				<input
-					id='chat-message'
-					type='text'
-					onChange={onChangeHandler}
-					value={text}
-					maxLength={500}
-				/>
-				<button disabled={!text.trim()} onClick={onClickHandler}>
-					Send
-				</button>
-			</form>
+			<MessageForm
+				id='chat-message'
+				value={text}
+				disabled={!text.trim()}
+				onChange={onChangeHandler}
+				onClick={onClickHandler}
+			/>
 		</>
 	);
 };
