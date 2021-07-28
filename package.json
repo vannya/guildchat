@@ -13,7 +13,7 @@
   "author": "Van Tabbert",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
+    "firebase": "^8.8.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -51,6 +51,7 @@
     "prettier": "^2.3.2",
     "sass": "^1.35.2",
     "sass-loader": "^12.1.0",
+    "source-map-loader": "^3.0.0",
     "style-loader": "^3.1.0",
     "ts-jest": "^27.0.4",
     "ts-loader": "^9.2.3",
