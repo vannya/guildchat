@@ -5,6 +5,8 @@ import 'firebase/analytics';
 import 'firebase/database';
 import './styles.scss';
 import { MessageForm } from './components/MessageForm';
+import { MessageList } from './components/MessageList';
+import { MessageItem } from './types';
 
 // FIREBASE INITIALIZATION
 firebase.initializeApp({
@@ -20,8 +22,9 @@ firebase.initializeApp({
 firebase.analytics();
 
 // CONSTANTS
-const USER_ID = 2; // Will handle auth later
-const RECEIVER_ID = 1; // Will handle this later
+export const USER_ID = 1; // Will handle auth later
+export const RECEIVER_ID = 2; // Will handle this later
+
 const chatDB = firebase
 	.database()
 	.ref('chats')
@@ -32,12 +35,12 @@ const chatDB = firebase
 	);
 
 export const App = (): JSX.Element => {
-	const [messages, setMessages] = useState([]);
-	const [text, setText] = useState('');
+	const [messages, setMessages] = useState<MessageItem[]>([]);
+	const [text, setText] = useState<string>('');
 
 	useEffect(() => {
 		chatDB.on('value', snapshot => {
-			let messages: any[] = [];
+			let messages: MessageItem[] = [];
 			snapshot.forEach(item => {
 				messages = item.val();
 			});
@@ -69,11 +72,8 @@ export const App = (): JSX.Element => {
 	};
 
 	return (
-		<>
-			{messages &&
-				messages.map(item => {
-					return <div key={item.timeStamp}>{item.content}</div>;
-				})}
+		<div className='chat-box'>
+			{messages && <MessageList messages={messages} />}
 			<MessageForm
 				id='chat-message'
 				value={text}
@@ -81,7 +81,7 @@ export const App = (): JSX.Element => {
 				onChange={onChangeHandler}
 				onClick={onClickHandler}
 			/>
-		</>
+		</div>
 	);
 };
 

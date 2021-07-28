@@ -2,7 +2,7 @@ import React, { ChangeEvent, SyntheticEvent } from 'react';
 interface IMessageFormProps {
 	id: string;
 	buttonText?: string;
-	labelText?: string;
+	placeholderText?: string;
 	value: string;
 	disabled?: boolean;
 	onClick: (e: SyntheticEvent) => void;
@@ -11,21 +11,21 @@ interface IMessageFormProps {
 export const MessageForm = ({
 	id,
 	buttonText = 'Send',
-	labelText = 'Enter Text',
+	placeholderText = 'Enter Text',
 	value,
 	disabled = false,
 	onClick,
 	onChange
 }: IMessageFormProps): JSX.Element => {
 	return (
-		<form>
-			<label htmlFor={id}>{labelText}</label>
+		<form className='message-form'>
 			<input
 				id={id}
 				type='text'
 				onChange={onChange}
 				value={value}
 				maxLength={500}
+				placeholder={placeholderText}
 			/>
 			<button disabled={disabled} onClick={onClick}>
 				{buttonText}
