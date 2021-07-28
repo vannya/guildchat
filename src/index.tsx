@@ -5,7 +5,7 @@ import 'firebase/analytics';
 import 'firebase/database';
 import './styles.scss';
 
-// Initialize Firebase
+// FIREBASE INITIALIZATION
 firebase.initializeApp({
 	apiKey: process.env.FIREBASE_API_KEY,
 	authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -18,69 +18,72 @@ firebase.initializeApp({
 });
 firebase.analytics();
 
-const db = firebase.database().ref('chats');
-
-const USER_ID = 1; // Will handle auth later
-const RECEIVER_ID = 2; // Will handle this later
+// CONSTANTS
+const USER_ID = 2; // Will handle auth later
+const RECEIVER_ID = 1; // Will handle this later
+const chatDB = firebase
+	.database()
+	.ref('chats')
+	.child(
+		USER_ID < RECEIVER_ID
+			? `${USER_ID}:${RECEIVER_ID}`
+			: `${RECEIVER_ID}:${USER_ID}`
+	);
 
 export const App = (): JSX.Element => {
 	const [messages, setMessages] = useState([]);
 	const [text, setText] = useState('');
 
-	const onClick = (e: SyntheticEvent): void => {
-		e.preventDefault();
-		const trimmedText = text.trim();
-		if (trimmedText !== '') {
-			const updatedMessages = messages.slice();
-			updatedMessages.push({
-				senderId: USER_ID,
-				timeStamp: Date.now(),
-				content: trimmedText
-			});
-			db.set([
-				{
-					chatId:
-						USER_ID < RECEIVER_ID
-							? `${USER_ID}:${RECEIVER_ID}`
-							: `${RECEIVER_ID}:${USER_ID}`,
-					messages: updatedMessages
-				}
-			]);
-			setText('');
-		}
-	};
-
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		setText(e.target.value);
-	};
-
 	useEffect(() => {
-		db.on('value', snapshot => {
+		chatDB.on('value', snapshot => {
 			let messages: any[] = [];
 			snapshot.forEach(item => {
-				if (
-					USER_ID < RECEIVER_ID &&
-					item.val().chatId === `${USER_ID}:${RECEIVER_ID}`
-				) {
-					messages = item.val().messages;
-				} else if (item.val().chatId === `${RECEIVER_ID}:${USER_ID}`) {
-					messages = item.val().messages;
-				}
+				messages = item.val();
 			});
 			setMessages(messages);
 		});
 	}, []);
 
+	const onClickHandler = (e: SyntheticEvent): void => {
+		e.preventDefault();
+		const trimmedText = text.trim();
+		if (trimmedText !== '') {
+			const updatedMessages = [
+				...messages,
+				{
+					senderId: USER_ID,
+					timeStamp: Date.now(),
+					content: trimmedText
+				}
+			];
+			chatDB.update({
+				messages: updatedMessages
+			});
+		}
+		setText('');
+	};
+
+	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		setText(e.target.value);
+	};
+
 	return (
 		<>
-			{messages.map(item => {
-				return <div key={item.timeStamp}>{item.content}</div>;
-			})}
+			{messages &&
+				messages.map(item => {
+					return <div key={item.timeStamp}>{item.content}</div>;
+				})}
 			<form>
-				<label>Enter Text</label>
-				<input type='text' onChange={onChange} value={text} />
-				<button disabled={!text.trim()} onClick={onClick}>
-					test
+				<label htmlFor='chat-message'>Enter Text</label>
+				<input
+					id='chat-message'
+					type='text'
+					onChange={onChangeHandler}
+					value={text}
+					maxLength={500}
+				/>
+				<button disabled={!text.trim()} onClick={onClickHandler}>
+					Send
 				</button>
 			</form>
 		</>
