@@ -13,6 +13,7 @@
   "author": "Van Tabbert",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -31,6 +32,7 @@
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.1.0",
+    "dotenv-webpack": "^7.0.3",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
