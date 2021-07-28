@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   entry: { app: './src/index.tsx' },
@@ -11,6 +12,15 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, '../build'),
     clean: true
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    modules: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules')],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: 'tsconfig.json'
+      })
+    ]
   },
   performance: { hints: false },
   devServer: {
