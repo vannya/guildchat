@@ -213,24 +213,43 @@ button {
 		display: flex;
 		flex-direction: column;
 	}
+}
 
-	button {
-		background-color: #fff;
-		border: 1px solid #dadce0;
+.friend-row {
+	background-color: #fff;
+	border: 1px solid #dadce0;
+	border-radius: 0;
+	color: #000;
+	cursor: pointer;
+	margin: 0;
+	padding: 16px 0;
+	width: 100%;
+
+	&:hover {
+		background-color: #dadce0;
+	}
+
+	&:active {
+		background-color: #00636f;
+		border: 1px solid #00636f;
+		color: #fff;
+	}
+	&--active {
+		background-color: #007d8c;
+		border: 1px solid #007d8c;
 		border-radius: 0;
-		color: #000;
+		color: #fff;
 		cursor: pointer;
 		margin: 0;
 		padding: 16px 0;
 		width: 100%;
-
 		&:hover {
-			background-color: #dadce0;
+			background-color: #00636f;
 		}
 
 		&:active {
-			background-color: #00636f;
-			border: 1px solid #00636f;
+			background-color: #0c0c49;
+			border: 1px solid #0c0c49;
 			color: #fff;
 		}
 	}

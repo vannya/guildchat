@@ -1,10 +1,11 @@
+// Shared general types
 export type MessageItem = {
 	senderId: string;
 	timeStamp: Date;
 	content: string;
 };
 
-export type Chats = {
-	chatId: string;
-	messages: MessageItem[];
+export type Friend = {
+	id: string;
+	name: string;
 };

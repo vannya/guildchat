@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { MessageRow } from './MessageRow';
 import { MessageItem } from '../types';
-import { AuthContext } from 'src';
+import { AuthContext } from '../services/context';
 
 interface IMessageListProps {
 	messages: MessageItem[];

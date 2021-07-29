@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext } from 'src';
+import { AuthContext } from '../services/context';
 
 interface ILoginProps {
 	setAuth: (isAuth: boolean) => void;
@@ -16,9 +16,11 @@ export const Login = ({ setAuth, setUserId }: ILoginProps): JSX.Element => {
 			setUserId(user);
 		}
 	};
+
 	const handleOnChange = (e: ChangeEvent<HTMLSelectElement>): void => {
 		setUser(e.target.value);
 	};
+
 	return (
 		<AuthContext.Consumer>
 			{({ isAuth }): JSX.Element => {

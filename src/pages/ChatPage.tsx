@@ -5,7 +5,7 @@ import 'firebase/database';
 import { MessageItem } from '../types';
 import { ChatBox } from '../components/ChatBox';
 import { FriendsList } from '../components/FriendList';
-import { AuthContext } from 'src';
+import { AuthContext } from '../services/context';
 import { Redirect } from 'react-router-dom';
 
 export const ChatPage = (): JSX.Element => {
@@ -119,6 +119,7 @@ export const ChatPage = (): JSX.Element => {
 			{friendList.length > 0 ? (
 				<>
 					<FriendsList
+						currentChat={receiver}
 						friends={friendList}
 						onClick={updateReceiver}
 						isInitialLoadingCompleted={isInitialLoadingCompleted}

@@ -1,13 +1,16 @@
 import React from 'react';
 import { FriendRow } from './FriendRow';
+import { Friend } from '../types';
 
 interface IFriendsListProps {
-	friends: any[];
+	currentChat: string;
+	friends: Friend[];
 	isInitialLoadingCompleted: boolean;
 	onClick: (id: string) => void;
 }
 
 export const FriendsList = ({
+	currentChat,
 	friends,
 	isInitialLoadingCompleted,
 	onClick
@@ -24,6 +27,7 @@ export const FriendsList = ({
 								id={friend.id}
 								name={friend.name}
 								onClick={onClick}
+								activeFriend={currentChat === friend.id}
 							/>
 						);
 					})
