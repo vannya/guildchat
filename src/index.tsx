@@ -7,6 +7,7 @@ import './styles.scss';
 import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/database';
+import { Header } from './components/Header';
 
 export const AuthContext = createContext({ isAuth: false, userId: null });
 
@@ -26,8 +27,15 @@ firebase.analytics();
 export const App = (): JSX.Element => {
 	const [isAuth, setIsAuth] = useState<boolean>(false);
 	const [userId, setUserId] = useState<string>(null);
+
+	const onLogout = (): void => {
+		setIsAuth(false);
+		setUserId(null);
+	};
+
 	return (
 		<BrowserRouter>
+			<Header isAuth={isAuth} onLogout={onLogout} />
 			<Switch>
 				<Route exact path='/'>
 					<AuthContext.Provider value={{ isAuth, userId }}>
@@ -36,7 +44,7 @@ export const App = (): JSX.Element => {
 				</Route>
 				<Route path='/chat'>
 					<AuthContext.Provider value={{ isAuth, userId }}>
-						<ChatPage />
+						{isAuth ? <ChatPage /> : <Redirect to='/' />}
 					</AuthContext.Provider>
 				</Route>
 			</Switch>

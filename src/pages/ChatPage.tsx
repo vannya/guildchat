@@ -111,7 +111,7 @@ export const ChatPage = (): JSX.Element => {
 		return <Redirect push to='/' />;
 	}
 	if (!isInitialLoadingCompleted) {
-		return null;
+		return <></>;
 	}
 	return (
 		<div className='guild-chat'>
