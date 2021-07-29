@@ -6,5 +6,5 @@ interface IChatBoxHeaderProps {
 export const ChatBoxHeader = ({
 	userName
 }: IChatBoxHeaderProps): JSX.Element => {
-	return <div className='chatbox-header'>Chatting with {userName}</div>;
+	return <h2 className='chatbox-header'>Chatting with {userName}</h2>;
 };
