@@ -47,6 +47,7 @@ export const ChatPage = (): JSX.Element => {
 				})
 			);
 			setFriendList(friends);
+			setReceiver(friends[0].id);
 		}
 
 		userDB.child(context.userId).on('value', snapshot => {
@@ -114,7 +115,7 @@ export const ChatPage = (): JSX.Element => {
 		return <></>;
 	}
 	return (
-		<div className='guild-chat'>
+		<div className='chat-page'>
 			{friendList.length > 0 ? (
 				<>
 					<FriendsList

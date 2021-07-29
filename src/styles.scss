@@ -1,6 +1,7 @@
-.guild-chat {
+.chat-page {
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 }
 
 .message-row {
@@ -133,5 +134,63 @@
 	h1 {
 		font-size: 24px;
 		margin: 0;
+	}
+
+	button {
+		padding: 8px 16px;
+		font-size: 18px;
+		border: 1px solid #dadce0;
+		cursor: pointer;
+		background-color: #dadce0;
+		border-radius: 4px;
+		margin-left: 16px;
+	}
+}
+
+.login-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 48px;
+
+	h2,
+	h3 {
+		margin: 0;
+	}
+
+	h2 {
+		font-size: 30px;
+	}
+
+	h3 {
+		font-size: 18px;
+		font-weight: 400;
+	}
+
+	&--select-group {
+		margin: 24px 0 8px;
+		select,
+		button {
+			padding: 8px 16px;
+			font-size: 18px;
+			border: 1px solid #dadce0;
+			cursor: pointer;
+		}
+
+		button {
+			border-top: 1px solid #dadce0;
+			background-color: #dadce0;
+			border-radius: 4px;
+			margin-left: 16px;
+			&:hover {
+				background-color: #dadce0;
+			}
+
+			&:active {
+				background-color: #0c0c49;
+				color: #fff;
+			}
+		}
 	}
 }

@@ -26,14 +26,18 @@ export const Login = ({ setAuth, setUserId }: ILoginProps): JSX.Element => {
 					return <Redirect push to='chat' />;
 				} else {
 					return (
-						<div>
-							<select onChange={handleOnChange}>
-								<option value=''></option>
-								<option value='1'>Bob</option>
-								<option value='2'>Jane</option>
-								<option value='3'>Noah</option>
-							</select>
-							<button onClick={handleOnClick}>Log In</button>
+						<div className='login-page'>
+							<h2>Welcome to Guild Chat</h2>
+							<h3>Please log in to demo!</h3>
+							<div className='login-page--select-group'>
+								<select onChange={handleOnChange}>
+									<option value=''>Choose a user</option>
+									<option value='1'>Bob</option>
+									<option value='2'>Jane</option>
+									<option value='3'>Noah</option>
+								</select>
+								<button onClick={handleOnClick}>Log In</button>
+							</div>
 						</div>
 					);
 				}
