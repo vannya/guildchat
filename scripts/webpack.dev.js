@@ -27,7 +27,8 @@ module.exports = {
     static: path.join(__dirname, '../build'),
     compress: true,
     port: 9000,
-    open: true
+    open: true,
+    historyApiFallback: true,
   },
   optimization: {
     splitChunks: {

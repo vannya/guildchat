@@ -1,6 +1,7 @@
 module.exports = {
 	globals: {
 		window: true,
+		firebase: true,
 		'ts-jest': {
 			tsconfig: 'tsconfig.test.json'
 		}

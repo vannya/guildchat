@@ -3,19 +3,21 @@ import { FriendRow } from './FriendRow';
 
 interface IFriendsListProps {
 	friends: any[];
+	isInitialLoadingCompleted: boolean;
 	onClick: (id: string) => void;
 }
 
 export const FriendsList = ({
 	friends,
+	isInitialLoadingCompleted,
 	onClick
 }: IFriendsListProps): JSX.Element => {
-	if (friends.length) {
-		return (
-			<div className='friends-list'>
-				<h2>Friends List</h2>
-				<div className='friends-list--buttons'>
-					{friends.map(friend => {
+	return (
+		<div className='friends-list'>
+			<h2>Friends List</h2>
+			<div className='friends-list--buttons'>
+				{!isInitialLoadingCompleted ? null : friends.length > 0 ? (
+					friends.map(friend => {
 						return (
 							<FriendRow
 								key={friend.id}
@@ -24,11 +26,11 @@ export const FriendsList = ({
 								onClick={onClick}
 							/>
 						);
-					})}
-				</div>
+					})
+				) : (
+					<div>Add Friends</div>
+				)}
 			</div>
-		);
-	} else {
-		return <button>Add Friends</button>;
-	}
+		</div>
+	);
 };
