@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { ChatPage } from './pages/ChatPage';
-import { Login } from './pages/Login';
-import './styles.scss';
 import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/database';
+import './styles.scss';
 import { Header } from './components/Header';
+import { ChatPage } from './pages/ChatPage';
+import { Login } from './pages/Login';
 
 export const AuthContext = createContext({ isAuth: false, userId: null });
 
