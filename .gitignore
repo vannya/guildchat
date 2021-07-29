@@ -2,3 +2,5 @@
 /build
 /coverage
 .env
+env.txt
+
