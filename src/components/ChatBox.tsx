@@ -4,7 +4,7 @@ import { MessageList } from './MessageList';
 import { ChatBoxHeader } from './ChatBoxHeader';
 import { MessageItem } from '../types';
 
-interface IChatBoxProps {
+export interface IChatBoxProps {
 	receiverName: string;
 	messages: MessageItem[];
 	onSubmit: (text: string) => void;
@@ -37,7 +37,7 @@ export const ChatBox = ({
 				<MessageForm
 					id='chat-message'
 					value={text}
-					disabled={!text.trim()}
+					disabled={!text}
 					onChange={onChangeHandler}
 					onClick={onClickHandler}
 				/>

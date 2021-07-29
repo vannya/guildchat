@@ -1,5 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent } from 'react';
-interface IMessageFormProps {
+export interface IMessageFormProps {
 	id: string;
 	buttonText?: string;
 	placeholderText?: string;
@@ -27,7 +27,11 @@ export const MessageForm = ({
 				maxLength={500}
 				placeholder={placeholderText}
 			/>
-			<button disabled={disabled} onClick={onClick}>
+			<button
+				className='message-form--button'
+				disabled={disabled}
+				onClick={onClick}
+			>
 				{buttonText}
 			</button>
 		</form>

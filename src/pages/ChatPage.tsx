@@ -4,7 +4,7 @@ import 'firebase/analytics';
 import 'firebase/database';
 import { MessageItem } from '../types';
 import { ChatBox } from '../components/ChatBox';
-import { FriendsList } from '../components/FriendList';
+import { FriendsList } from '../components/FriendsList';
 import { AuthContext } from '../services/context';
 import { Redirect } from 'react-router-dom';
 

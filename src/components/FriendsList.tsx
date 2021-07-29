@@ -2,7 +2,7 @@ import React from 'react';
 import { FriendRow } from './FriendRow';
 import { Friend } from '../types';
 
-interface IFriendsListProps {
+export interface IFriendsListProps {
 	currentChat: string;
 	friends: Friend[];
 	isInitialLoadingCompleted: boolean;

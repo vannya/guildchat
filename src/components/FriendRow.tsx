@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface IFriendRowProps {
+export interface IFriendRowProps {
 	id: string;
 	name: string;
 	activeFriend: boolean;

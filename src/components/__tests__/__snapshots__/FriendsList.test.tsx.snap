@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FriendsList should match snapshot 1`] = `
+<div>
+  <div
+    class="friends-list"
+  >
+    <h2>
+      Friends List
+    </h2>
+    <div
+      class="friends-list--buttons"
+    >
+      <div>
+        Add Friends
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FriendsList should not load if loading not completed 1`] = `
+<div>
+  <div
+    class="friends-list"
+  >
+    <h2>
+      Friends List
+    </h2>
+    <div
+      class="friends-list--buttons"
+    />
+  </div>
+</div>
+`;

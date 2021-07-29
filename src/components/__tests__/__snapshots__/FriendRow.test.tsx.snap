@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FriendRow should match snapshot 1`] = `
+<div>
+  <button
+    class="friend-row"
+  >
+    Test Name
+  </button>
+</div>
+`;

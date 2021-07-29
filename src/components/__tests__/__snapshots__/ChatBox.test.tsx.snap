@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatBox should match snapshot 1`] = `
+<div>
+  <div>
+    <h2
+      class="chatbox-header"
+    >
+      Chatting with 
+      Test Name
+    </h2>
+    <div
+      class="chat-box"
+    >
+      <div
+        class="message-list"
+      >
+        <div />
+      </div>
+      <form
+        class="message-form"
+      >
+        <input
+          id="chat-message"
+          maxlength="500"
+          placeholder="Enter Text"
+          type="text"
+          value=""
+        />
+        <button
+          class="message-form--button"
+          disabled=""
+        >
+          Send
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;

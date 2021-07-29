@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatBoxHeader should match snapshot 1`] = `
+<div>
+  <h2
+    class="chatbox-header"
+  >
+    Chatting with 
+    Test Name
+  </h2>
+</div>
+`;

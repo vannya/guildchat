@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageList should match snapshot 1`] = `
+<div>
+  <div
+    class="message-list"
+  >
+    <div
+      class="message-row--outgoing"
+    >
+      Message 1
+    </div>
+    <div
+      class="message-row--incoming"
+    >
+      Message 2
+    </div>
+    <div />
+  </div>
+</div>
+`;

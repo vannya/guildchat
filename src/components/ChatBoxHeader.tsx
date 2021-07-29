@@ -1,5 +1,5 @@
 import React from 'react';
-interface IChatBoxHeaderProps {
+export interface IChatBoxHeaderProps {
 	userName: string;
 }
 

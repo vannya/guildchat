@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface IMessageRowProps {
+export interface IMessageRowProps {
 	text: string;
 	displayType: 'outgoing' | 'incoming';
 }

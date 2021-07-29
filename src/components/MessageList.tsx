@@ -3,7 +3,7 @@ import { MessageRow } from './MessageRow';
 import { MessageItem } from '../types';
 import { AuthContext } from '../services/context';
 
-interface IMessageListProps {
+export interface IMessageListProps {
 	messages: MessageItem[];
 }
 

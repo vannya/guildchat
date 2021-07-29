@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageForm should match snapshot 1`] = `
+<div>
+  <form
+    class="message-form"
+  >
+    <input
+      id="message-chat"
+      maxlength="500"
+      placeholder="Enter Text"
+      type="text"
+      value=""
+    />
+    <button
+      class="message-form--button"
+    >
+      Send
+    </button>
+  </form>
+</div>
+`;
