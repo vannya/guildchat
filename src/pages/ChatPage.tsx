@@ -40,12 +40,16 @@ export const ChatPage = (): JSX.Element => {
 	useEffect(() => {
 		async function getFriends(user: any): Promise<void> {
 			let friends: any[] = [];
-			await Promise.all(
-				user.val().map(async (friend: any) => {
-					const friendInfo = await userDB.child(friend).get();
-					friends = [...friends, { name: friendInfo.val()?.name, id: friend }];
-				})
-			);
+			try {
+				await Promise.all(
+					user.val().map(async (friend: any) => {
+						const friendInfo = await userDB.child(friend).get();
+						friends = [...friends, { name: friendInfo.val()?.name, id: friend }];
+					})
+				);
+			} catch (err) {
+				console.log(err);
+			}
 			setFriendList(friends);
 			setReceiver(friends[0].id);
 		}
