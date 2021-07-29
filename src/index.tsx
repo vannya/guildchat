@@ -4,10 +4,9 @@ import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/database';
 import './styles.scss';
-import { MessageForm } from './components/MessageForm';
-import { MessageList } from './components/MessageList';
-import { MessageHeader } from './components/MessageHeader';
 import { MessageItem } from './types';
+import { ChatBox } from './components/ChatBox';
+import { FriendsList } from './components/FriendList';
 
 // FIREBASE INITIALIZATION
 firebase.initializeApp({
@@ -23,33 +22,53 @@ firebase.initializeApp({
 firebase.analytics();
 
 // CONSTANTS
-export const USER_ID = '1'; // Will handle auth later
-export const RECEIVER_ID = '2'; // Will handle this later
+export const USER_ID = '2'; // Will handle auth later
+export const RECEIVER_ID = '1'; // Will handle this later
 
-const chatDB = firebase
-	.database()
-	.ref('chats')
-	.child(
-		Number(USER_ID) < Number(RECEIVER_ID)
-			? `${USER_ID}:${RECEIVER_ID}`
-			: `${RECEIVER_ID}:${USER_ID}`
-	);
+const chatDB = firebase.database().ref('chats');
 
 const userDB = firebase.database().ref('users');
 
 export const App = (): JSX.Element => {
 	const [messages, setMessages] = useState<MessageItem[]>([]);
-	const [text, setText] = useState<string>('');
 	const [receiver, setReceiver] = useState(RECEIVER_ID);
 	const [receiverName, setReceiverName] = useState(null);
+	const [friendList, setFriendList] = useState([]);
 
 	useEffect(() => {
-		chatDB.on('value', snapshot => {
-			let messages: MessageItem[] = [];
-			snapshot.forEach(item => {
-				messages = item.val();
+		chatDB
+			.child(
+				Number(USER_ID) < Number(receiver)
+					? `${USER_ID}:${receiver}`
+					: `${receiver}:${USER_ID}`
+			)
+			.on('value', snapshot => {
+				let messages: MessageItem[] = [];
+				snapshot.forEach(item => {
+					messages = item.val();
+				});
+				setMessages(messages);
 			});
-			setMessages(messages);
+	}, [receiver]);
+
+	useEffect(() => {
+		async function getFriends(user: any): Promise<void> {
+			let friends: any[] = [];
+			await Promise.all(
+				user.val().map(async (friend: any) => {
+					const friendInfo = await userDB.child(friend).get();
+					friends = [...friends, { name: friendInfo.val()?.name, id: friend }];
+				})
+			);
+			setFriendList(friends);
+		}
+
+		userDB.child(USER_ID).on('value', snapshot => {
+			snapshot.forEach(user => {
+				if (user.key === 'friends') {
+					getFriends(user);
+				}
+			});
 		});
 	}, []);
 
@@ -57,49 +76,47 @@ export const App = (): JSX.Element => {
 		if (receiver) {
 			userDB.child(receiver).on('value', snapshot => {
 				snapshot.forEach(user => {
-					setReceiverName(user.val());
+					if (user.key === 'name' && user.val() !== receiverName) {
+						setReceiverName(user.val());
+					}
 				});
 			});
 		}
 	}, [receiver]);
 
-	const onClickHandler = (e: SyntheticEvent): void => {
-		e.preventDefault();
-		const trimmedText = text.trim();
-		if (trimmedText !== '') {
-			const updatedMessages = [
-				...messages,
-				{
-					senderId: USER_ID,
-					timeStamp: Date.now(),
-					content: trimmedText
-				}
-			];
-			chatDB.update({
+	const addMessage = (text: string): void => {
+		const updatedMessages = [
+			...messages,
+			{
+				senderId: USER_ID,
+				timeStamp: Date.now(),
+				content: text
+			}
+		];
+		chatDB
+			.child(
+				Number(USER_ID) < Number(receiver)
+					? `${USER_ID}:${receiver}`
+					: `${receiver}:${USER_ID}`
+			)
+			.update({
 				messages: updatedMessages
 			});
-		}
-		setText('');
 	};
 
-	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-		setText(e.target.value);
+	const updateReceiver = (id: string): void => {
+		setReceiver(id);
 	};
 
 	return (
-		<>
-			<MessageHeader userName={receiverName} />
-			<div className='chat-box'>
-				{messages && <MessageList messages={messages} />}
-				<MessageForm
-					id='chat-message'
-					value={text}
-					disabled={!text.trim()}
-					onChange={onChangeHandler}
-					onClick={onClickHandler}
-				/>
-			</div>
-		</>
+		<div className='guild-chat'>
+			<FriendsList friends={friendList} onClick={updateReceiver} />
+			<ChatBox
+				receiverName={receiverName}
+				messages={messages}
+				onSubmit={addMessage}
+			/>
+		</div>
 	);
 };
 

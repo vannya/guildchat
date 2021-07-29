@@ -1,4 +1,9 @@
-.message-item {
+.guild-chat {
+	display: flex;
+	flex-direction: row;
+}
+
+.message-row {
 	&--outgoing {
 		background-color: #63d663;
 		padding: 8px 16px;
@@ -68,11 +73,51 @@
 	}
 }
 
-.message-header {
+.chatbox-header {
 	width: 400px;
 	padding: 16px 0;
 	background-color: #0c0c49;
 	border: 1px solid #0c0c49;
 	color: #fff;
 	text-align: center;
+	font-size: 18px;
+}
+
+.friends-list {
+	width: 150px;
+	display: flex;
+	flex-direction: column;
+	h2 {
+		font-size: 18px;
+		background-color: #fff;
+		border: 1px solid #0c0c49;
+		padding: 16px 0;
+		margin: 0;
+		font-weight: 400;
+		text-align: center;
+	}
+	&--buttons {
+		display: flex;
+		flex-direction: column;
+	}
+
+	button {
+		width: 100%;
+		padding: 16px 0;
+		background-color: #fff;
+		border-bottom: 1px solid #dadce0;
+		border-left: 1px solid #dadce0;
+		border-top: 1px solid #dadce0;
+		border-right: 1px solid #fff;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #dadce0;
+		}
+
+		&:active {
+			background-color: #0c0c49;
+			color: #fff;
+		}
+	}
 }
