@@ -15,6 +15,8 @@ export const ChatPage = (): JSX.Element => {
 	const [friendList, setFriendList] = useState([]);
 	const [isInitialLoadingCompleted, setIsInitialLoadingCompleted] =
 		useState(false);
+	const [isFriendsListOpenInMobile, setIsFriendsListOpenInMobile] =
+		useState<boolean>(false);
 
 	const chatDB = firebase.database().ref('chats');
 	const userDB = firebase.database().ref('users');
@@ -99,6 +101,15 @@ export const ChatPage = (): JSX.Element => {
 
 	const updateReceiver = (id: string): void => {
 		setReceiver(id);
+		setIsFriendsListOpenInMobile(false);
+	};
+
+	const closeMobileFriendList = (): void => {
+		setIsFriendsListOpenInMobile(false);
+	};
+
+	const openMobileFriendList = (): void => {
+		setIsFriendsListOpenInMobile(true);
 	};
 
 	// Quick way to add demo friends for a new demo user
@@ -122,11 +133,16 @@ export const ChatPage = (): JSX.Element => {
 		<div className='chat-page'>
 			{friendList.length > 0 ? (
 				<>
+					<button className='mobile-friend-list' onClick={openMobileFriendList}>
+						Open Friends List
+					</button>
 					<FriendsList
 						currentChat={receiver}
 						friends={friendList}
 						onClick={updateReceiver}
 						isInitialLoadingCompleted={isInitialLoadingCompleted}
+						isFriendListOpenInMobile={isFriendsListOpenInMobile}
+						onClose={closeMobileFriendList}
 					/>
 					<ChatBox
 						receiverName={receiverName}

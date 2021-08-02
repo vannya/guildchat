@@ -58,13 +58,6 @@ button {
 			display: none;
 			margin: 0 8px 0 0;
 
-			@media only screen and (max-width: 600px) {
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-			}
-
 			&:hover {
 				background-color: #dadce0;
 			}
@@ -125,6 +118,20 @@ button {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	@media only screen and (max-width: 600px) {
+		flex-direction: column;
+	}
+
+	.mobile-friend-list {
+		display: none;
+		@media only screen and (max-width: 600px) {
+			display: flex;
+			margin: 16px 8px;
+			max-width: 250px;
+			align-self: center;
+			cursor: pointer;
+		}
+	}
 }
 
 .chatbox-header {
@@ -234,10 +241,10 @@ button {
 	display: flex;
 	flex-direction: column;
 	width: 150px;
-
-	@media only screen and (max-width: 600px) {
+	&--mobile {
 		display: none;
 	}
+
 	h2 {
 		background-color: #fff;
 		border: 1px solid #00636f;
@@ -250,6 +257,43 @@ button {
 	&--buttons {
 		display: flex;
 		flex-direction: column;
+	}
+	@media only screen and (max-width: 600px) {
+		display: none;
+		&--mobile {
+			display: flex;
+			position: absolute;
+			flex-direction: column;
+			background: #fff;
+			width: 300px;
+			padding: 8px;
+			border: 1px solid #000;
+			margin: 0 auto;
+			right: 0;
+			left: 0;
+			max-height: 600px;
+		}
+		&--close {
+			align-self: flex-end;
+			background: none;
+			border: none;
+			color: #000;
+			margin: 0;
+			padding: 4px;
+			margin-bottom: 2px;
+
+			&:hover {
+				background: #dadce0;
+				color: #000;
+				border: none;
+			}
+
+			&:active {
+				background: #dadce0;
+				color: #000;
+				border: none;
+			}
+		}
 	}
 }
 
