@@ -6,11 +6,13 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
+    "checkJs": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": ".",
     "noUnusedParameters": false,
-    "noUnusedLocals": false
-  }
+    "noUnusedLocals": false,
+  },
+  "include": ["src/**/*.ts", "src/**/*.ts"]
 }

@@ -49,6 +49,26 @@ button {
 		font-size: 24px;
 		margin: 0;
 		padding: 0 24px;
+		display: flex;
+
+		button {
+			background-color: inherit;
+			border: inherit;
+			padding: 2px;
+			display: none;
+			margin: 0 8px 0 0;
+
+			@media only screen and (max-width: 600px) {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			}
+
+			&:hover {
+				background-color: #dadce0;
+			}
+		}
 	}
 }
 
@@ -253,4 +273,7 @@ button {
 			color: #fff;
 		}
 	}
+}
+
+@media only screen and (max-width: 600px) {
 }
