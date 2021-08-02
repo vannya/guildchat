@@ -30,7 +30,7 @@ export const ChatBox = ({
 		setText(e.target.value);
 	};
 	return (
-		<div>
+		<div className='chat-box--wrapper'>
 			<ChatBoxHeader userName={receiverName} />
 			<div className='chat-box'>
 				{messages && <MessageList messages={messages} />}

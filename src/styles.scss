@@ -136,6 +136,10 @@ button {
 	padding: 16px 0;
 	text-align: center;
 	width: 400px;
+
+	@media only screen and (max-width: 600px) {
+		width: 100%;
+	}
 }
 
 .chat-box {
@@ -147,6 +151,16 @@ button {
 	height: 800px;
 	justify-content: space-between;
 	width: 400px;
+
+	@media only screen and (max-width: 600px) {
+		width: 100%;
+	}
+}
+
+.chat-box--wrapper {
+	@media only screen and (max-width: 600px) {
+		width: 100%;
+	}
 }
 
 .message-list {
@@ -220,6 +234,10 @@ button {
 	display: flex;
 	flex-direction: column;
 	width: 150px;
+
+	@media only screen and (max-width: 600px) {
+		display: none;
+	}
 	h2 {
 		background-color: #fff;
 		border: 1px solid #00636f;
