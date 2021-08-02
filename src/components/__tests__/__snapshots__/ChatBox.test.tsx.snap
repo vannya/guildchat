@@ -2,7 +2,9 @@
 
 exports[`ChatBox should match snapshot 1`] = `
 <div>
-  <div>
+  <div
+    class="chat-box--wrapper"
+  >
     <h2
       class="chatbox-header"
     >
